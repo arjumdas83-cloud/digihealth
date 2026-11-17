@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 const app = express();
+if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
 app.use(express.json());
 app.use(session({secret:process.env.SESSION_SECRET || 'development-only-change-this-secret',resave:false,saveUninitialized:false,cookie:{httpOnly:true,sameSite:'lax',secure:process.env.NODE_ENV==='production'}}));
 app.use(express.static(path.join(__dirname,'public')));
